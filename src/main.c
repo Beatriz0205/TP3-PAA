@@ -7,6 +7,13 @@
 
 
 int main(){
+    //////////////////////////////
+    //Para quando for o caso de ler os 12 arquivos criar um vetor com os 12 nomes e por para rodar ele
+    //como cada grupo vai ter seu txt e o leitor não vai adicionar mais podemos por diretamente o nome do nosso quando for preciso
+
+    /////////////////////////////
+
+
     //usado para ler o arquivo
     char nome_arquivo[256];
     char caminho_arquivo[150] = "arq/";

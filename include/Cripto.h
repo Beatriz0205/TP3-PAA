@@ -11,4 +11,6 @@ char* aplicarChaveParcial(const char *texto, const char chave[26]);
 // Imprime estado completo
 void mostrarEstado(const char *textoCriptografado, const char chave[26]);
 
+void editarChaveManual(char chave[26]);
+
 #endif

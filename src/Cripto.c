@@ -78,6 +78,40 @@ void mostrarEstado(const char *textoCriptografado, const char chave[26]) {
 
     printf("\n\n");
     free(parcial);
+
+    
 }
+
+
+void editarChaveManual(char chave[26]) {
+    char original, cifrada;
+    
+    printf("\n=== Alterar Chave Manualmente ===\n");
+    printf("Informe a letra ORIGINAL (Portugues), seguida da letra CRIPTOGRAFADA.\n");
+    printf("Exemplo: Se voce acha que o 'X' do texto eh na verdade um 'A', digite: A X\n");
+    printf("> ");
+    
+    scanf(" %c %c", &original, &cifrada);
+
+    original = toupper(original);
+    cifrada = toupper(cifrada);
+
+    // Validação básica
+    if (isalpha(original) && isalpha(cifrada)) {
+        // A Lógica Inversa:
+        // O vetor chave é indexado pela letra CRIPTOGRAFADA.
+        // Então se A virou X (Original A, Cifrada X):
+        // Vamos na gaveta do X (cifrada) e guardamos o A (original).
+        
+        int indice = cifrada - 'A';
+        chave[indice] = original;
+        
+        printf("Sucesso! Registrado que '%c' (no texto cifrado) sera traduzido como '%c'.\n", cifrada, original);
+    } else {
+        printf("Erro: Por favor, digite apenas letras validas.\n");
+    }
+}
+
+
 
 

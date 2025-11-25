@@ -8,6 +8,33 @@
 #define Maxchar 256
 #define NumMaxErros 32
 
+int contaCaracteres(char* texto) {
+    int cont = 0;
+    while (texto[cont] != '\0') {
+        cont++;
+    }
+    return cont;
+}
+
+int contaPalavras(char* texto) {
+    int cont = 0;
+    int dentro = 0;
+
+    for (int i = 0; texto[i] != '\0'; i++) {
+        if (texto[i] != ' ') {
+            if (!dentro) {
+                cont++;
+                dentro = 1;
+            }
+        } 
+        else {
+            dentro = 0;
+        }
+    }
+    return cont;
+}
+
+
 void computarUltimaOcorrencia(const char* padrao,int tabela[]){
 
     int m = strlen(padrao);
@@ -51,11 +78,12 @@ int boyerMooreHorspool(const char* texto, const char* padrao, int localOcorrenci
     return quantOcorrencias;
 }
 
-void ShiftAndAproximado(const char *texto, const char *padrao, int k, int localOcorrencia[],int* count) {
+int ShiftAndAproximado(const char* texto, const char* padrao, int k, int localOcorrencia[]) {
 
     int m = strlen(padrao); //tam do padrao
     int n = strlen(texto);  //tam do texto
 
+    int quantOcorrencias = 0;
     unsigned long Masc[Maxchar];  //mascaras de bits de cada caractere
     unsigned long i, j; 
     unsigned long Ri; //inicio do casamento
@@ -92,12 +120,38 @@ void ShiftAndAproximado(const char *texto, const char *padrao, int k, int localO
             R[j] = Rnovo; //atualiza
         }
         if ((Rnovo & 1) != 0){ //testa se o ultimo bit esta ativo(casamento aconteceu)
-            localOcorrencia[*count]=i-m+1; //salva onde comeca a ocorrencia do casamento aprox no texto
-            *count+=1; //contabiliza um casamento
+            localOcorrencia[quantOcorrencias]=i-m+1; //salva onde comeca a ocorrencia do casamento aprox no texto
+            quantOcorrencias+=1; //contabiliza um casamento
+        }
+    }
+    return quantOcorrencias;
+}
+
+float frequenciaPalavras(int ocorrenciasP, char* texto){
+    return ocorrenciasP / contaPalavras(texto);
+
+}
+float frequenciaLetras(int ocorrenciasP, int tamPadrao, char* texto){
+    return (ocorrenciasP * tamPadrao) / contaCaracteres(texto);
+}
+
+void exibirOcorrencias(char* texto, int posicoes[], int tamPadrao, int qOcorrencias){
+    int j=0;
+    printf("Posicoes: ");
+    for (int i=0;i<qOcorrencias;i++){
+        printf("%d ",posicoes[i]);
+    }
+    printf("\n");
+    for (int i=0;i<strlen(texto);i++){
+        if (i==posicoes[j]){
+            printf(BLUE "%c" RESET, texto[i]);
+            j++;
+        }
+        else{
+            printf("%c", texto[i]); 
         }
     }
 }
-
 
 //testes
 // int main() {
@@ -111,9 +165,8 @@ void ShiftAndAproximado(const char *texto, const char *padrao, int k, int localO
 //     int j=0;
 
 //     int posicoes[100];
-//     int count = 0;
 
-//     ShiftAndAproximado(T,P,k,posicoes,&count);
+//     ShiftAndAproximado(T,P,k,posicoes);
 
 //     printf("padrao: %s, k: %d \n",P,k);
 //     printf("Quant ocorrencias do padrao: %d\n",count);

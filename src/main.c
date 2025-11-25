@@ -50,40 +50,128 @@
 //     return 0;
 // }
 
+void voltarMenu() {
+    int op;
+    printf("\nDigite 1 para voltar ao menu ou 0 para encerrar: ");
+    scanf("%d", &op);
+
+    while (getchar() != '\n');
+
+    if (op == 0) {
+        printf("\nPrograma encerrado.\n");
+        exit(0);
+    }
+}
+
+
 int main() {
 
-    // inicializa chave parcial
-    char chave[26];
-    inicializarChave(chave);
-
-    // ler arquivo
-    char nome_arquivo[256];
-    //char caminho_arquivo[150] = "arqCripto/";
-
-    char caminho_arquivo[150] = "arqCripto/"; 
+    int opcao;
     
-    printf("Nome do arquivo (sem .txt, ex: Hysilens): ");
-    scanf("%s", nome_arquivo);
+    printf("=== SISTEMA DE CRIPTOANÁLISE ===\n\n");
 
-    strcat(nome_arquivo, ".txt");
-    strcat(caminho_arquivo, nome_arquivo);
+    do {
+        printf("=== MENU ===\n");
+        printf("1. Ler arquivo\n");
+        printf("2. Mostrar estado da cripoanalise\n");
+        printf("3. Chute baseado na analise de frequencia\n");
+        printf("4. Casamento exato\n");
+        printf("5. Casamento aproximado\n");
+        printf("6. Alterar chave de criptografia\n");
+        printf("7. Exportar resultado e sair\n");
 
-    char *conteudo = ler_arquivo(caminho_arquivo);
-    if (!conteudo) {
-        printf("Erro ao ler arquivo!\n");
-        return 1;
-    }
+        scanf("%d", &opcao);
+        getchar();
+
+        switch(opcao) {
+            case 1:
+                // inicializa chave parcial
+                char chave[26];
+                inicializarChave(chave);
+
+                // ler arquivo
+                char nome_arquivo[256];
+                //char caminho_arquivo[150] = "arqCripto/";
+
+                char caminho_arquivo[150] = "arqCripto/"; 
+                
+                printf("Nome do arquivo (sem .txt, ex: Hysilens): ");
+                scanf("%s", nome_arquivo);
+
+                strcat(nome_arquivo, ".txt");
+                strcat(caminho_arquivo, nome_arquivo);
+
+                char *conteudo = ler_arquivo(caminho_arquivo);
+                if (!conteudo) {
+                    printf("Erro ao ler arquivo!\n");
+                    return 1;
+                }
+                //printf("Texto Original: %s\n\n", conteudo);
+
+                voltarMenu();
+                break;
+
+            case 2:
+                //logica aaqui
 
 
-    //printf("Texto Original: %s\n\n", conteudo);
+                voltarMenu();
+                break;
+
+            case 3:
+                //logica aaqui
+
+
+                voltarMenu();
+                break;
+
+            case 4:
+                //logica aaqui
+
+
+                voltarMenu();
+                break;
+
+            case 5:
+                //logica aaqui
+
+
+                voltarMenu();
+                break;
+
+            case 6:
+                //logica aaqui
+
+
+                voltarMenu();
+                break;
+
+            case 7:
+                //logica aaqui
+
+
+                printf("Programa encerrado.\n");
+                exit(0);
+
+            default:
+                printf("Opção inválida!\n");
+        }
+
+    } while (1);
+
+
+
+
+
+
+
+
+
 
    
 
     realizarAnaliseFrequencia(conteudo, chave);
 
-   
-    
-   
     mostrarEstado(conteudo, chave);
 
     // ... depois de realizarAnaliseFrequencia ...

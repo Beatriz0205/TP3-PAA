@@ -3,7 +3,9 @@
  #include <string.h>
  #include <limits.h>
 
-#define BLUE  "\x1b[34m"
+#define GREEN "\x1b[1;32m"
+#define ORANGE "\x1b[1;38;5;208m"
+#define RED "\x1b[1;31m"
 #define RESET "\x1b[0m"
 #define Maxchar 256
 #define NumMaxErros 32
@@ -40,7 +42,7 @@ void computarUltimaOcorrencia(const char* padrao,int tabela[]){
     int m = strlen(padrao);
 
     for (int i=0;i<128;i++){
-        tabela[i]=-1;// inicializa a tabela vazia para todos os caracteres ASCII 128
+        tabela[i]=-1;// inicializa a tabela vazia p todos os caracteres ASCII 128
     }
     for (int i=0;i<m-1;i++){
         tabela[(unsigned char)padrao[i]]=i; // guarda a ultima posicao em q cada caractere aparece
@@ -119,7 +121,10 @@ int ShiftAndAproximado(const char* texto, const char* padrao, int k, int localOc
             Rant = R[j]; //salva pra proxima verificacao
             R[j] = Rnovo; //atualiza
         }
-        if ((Rnovo & 1) != 0){ //testa se o ultimo bit esta ativo(casamento aconteceu)
+        int cAproximado = (R[k] & 1) != 0; //casamento aproximado
+        int cExato = (R[0] & 1) != 0; //casamento exato
+
+        if (cAproximado && ! cExato){ //testa se o ultimo bit esta ativo(casamento aconteceu)
             localOcorrencia[quantOcorrencias]=i-m+1; //salva onde comeca a ocorrencia do casamento aprox no texto
             quantOcorrencias+=1; //contabiliza um casamento
         }
@@ -136,20 +141,36 @@ float frequenciaLetras(int ocorrenciasP, int tamPadrao, char* texto){
 }
 
 void exibirOcorrencias(char* texto, int posicoes[], int tamPadrao, int qOcorrencias){
-    int j=0;
-    printf("Posicoes: ");
-    for (int i=0;i<qOcorrencias;i++){
-        printf("%d ",posicoes[i]);
-    }
-    printf("\n");
-    for (int i=0;i<strlen(texto);i++){
-        if (i==posicoes[j]){
-            printf(BLUE "%c" RESET, texto[i]);
-            j++;
+    
+    int n = strlen(texto);
+
+    for (int i = 0; i < n; i++) {
+
+        int ehInicio = 0;
+        int ehFim = 0;
+
+        for (int k = 0; k < qOcorrencias; k++) {
+            if (i == posicoes[k]) {
+                ehInicio = 1;
+                break;
+            }
         }
-        else{
-            printf("%c", texto[i]); 
+
+        for (int k = 0; k < qOcorrencias; k++) {
+            if (i == posicoes[k] + tamPadrao - 1) {
+                ehFim = 1;
+                break;
+            }
         }
+
+        if (ehInicio && ehFim)
+            printf(ORANGE "%c" RESET, texto[i]);
+        else if (ehInicio)
+            printf(GREEN "%c" RESET, texto[i]);
+        else if (ehFim)
+            printf(RED "%c" RESET, texto[i]);
+        else
+            printf("%c", texto[i]);
     }
 }
 

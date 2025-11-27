@@ -27,7 +27,7 @@ char* ler_arquivo(const char *nome_arquivo) {
 
     for (int i = 0; conteudo[i] != '\0'; i++) {
         if (conteudo[i] == '\n') {
-            conteudo[i] = '\0';   // OU: conteudo[i] = ' ';
+            conteudo[i] = ' ';   // OU: conteudo[i] = ' ';
         }
     }
 

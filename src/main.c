@@ -58,7 +58,7 @@ int main() {
                 char nome_arquivo[256];
                 //char caminho_arquivo[150] = "arqCripto/";
 
-                char caminho_arquivo[150] = "arqCripto/"; 
+                char caminho_arquivo[150] = "arq/";
                 
                 printf("Nome do arquivo (sem .txt, ex: Hysilens): ");
                 scanf("%s", nome_arquivo);
@@ -67,6 +67,8 @@ int main() {
                 strcat(caminho_arquivo, nome_arquivo);
 
                 conteudo = ler_arquivo(caminho_arquivo);
+                escrever_arquivo(nome_arquivo,conteudo);
+
                 if (!conteudo) {
                     printf("Erro ao ler arquivo!\n");
                     return 1;

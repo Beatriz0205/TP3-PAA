@@ -1,4 +1,4 @@
-#include "../include/Frequencia.h"
+#include "../include/frequencia.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

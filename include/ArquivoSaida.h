@@ -5,6 +5,6 @@
 #include <string.h>
 #include <stdbool.h>
 
-void registrarChave(int chave,const char *nome_arquivo );
+void registrarChave(char *chave,const char *nome_arquivo );
 
 #endif

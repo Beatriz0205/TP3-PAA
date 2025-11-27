@@ -73,5 +73,5 @@ void realizarAnaliseFrequencia(const char *textoCriptografado, char chave[26]) {
     }
     
     printf("Chave atualizada com base na frequencia!\n");
-    printf("Use a Opcao 1 para ver como o texto ficou com esse chute.\n");
+    printf("Use a Opcao 3 para ver como o texto ficou com esse chute.\n");
 }

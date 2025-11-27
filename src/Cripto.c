@@ -5,6 +5,11 @@
 #include <string.h>
 #include "../include/Arquivo.h"
 
+const char *TODOS_ARQUIVOS[] = {
+    "Aglaea", "Anaxa", "Castorice", "Cerydra", "Cipher", "Cyrene",
+    "Dang Heng - Terravox", "Hyacine", "Hysilens", "Mydei", "Phainon", "Tribios"
+};
+
 
 void inicializarChave(char chave[26]) {
     for (int i = 0; i < 26; i++) {
@@ -133,6 +138,56 @@ void cifraDeslocamento(const char* nomeArquivo, char* texto, int x){
 
     escrever_arquivo(nomeArquivo,textoCripto);
 
+}
+
+void aplicarCifraMemoria(char *texto, int deslocamento) {
+    for (int i = 0; texto[i] != '\0'; i++) {
+        char c = texto[i];
+        if (isalpha(c)) {
+            char base = isupper(c) ? 'A' : 'a';
+            // Garante que o deslocamento seja positivo e dentro de 0-25
+            texto[i] = ((c - base + deslocamento) % 26 + 26) % 26 + base;
+        }
+    }
+}
+
+char* gerarTextoGlobal(int deslocamento) {
+    char *textoGlobal = malloc(1); // Começa vazio
+    if (!textoGlobal) return NULL;
+    
+    textoGlobal[0] = '\0';
+    long tamanhoTotal = 0;
+
+    printf("\n--- Lendo e processando os 12 arquivos para comparacao ---\n");
+
+    for (int i = 0; i < 12; i++) {
+        // Lê o arquivo original da pasta arq/ 
+        char *temp = ler_arquivo(TODOS_ARQUIVOS[i]); 
+        
+        if (temp) {
+            // Aplica a mesma criptografia usada no arquivo principal
+            aplicarCifraMemoria(temp, deslocamento);
+
+            long tamTemp = strlen(temp);
+            // Realoca memória para caber o novo texto
+            char *novoPtr = realloc(textoGlobal, tamanhoTotal + tamTemp + 2); 
+            
+            if (!novoPtr) {
+                printf("Erro de memoria ao juntar arquivos!\n");
+                free(temp);
+                return textoGlobal; // Retorna o que conseguiu até agora
+            }
+            textoGlobal = novoPtr;
+
+            // Concatena
+            strcat(textoGlobal, temp);
+            strcat(textoGlobal, "\n"); // Adiciona quebra de linha
+            
+            tamanhoTotal += tamTemp + 1;
+            free(temp); // Limpa a memória do arquivo individual
+        }
+    }
+    return textoGlobal;
 }
 
 

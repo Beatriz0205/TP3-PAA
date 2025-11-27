@@ -15,4 +15,9 @@ void editarChaveManual(char chave[26]);
 
 void cifraDeslocamento(const char* nomeArquivo, char* texto, int x);
 
+// Aplica a cifra de César diretamente na memória 
+void aplicarCifraMemoria(char *texto, int deslocamento);
+
+// Lê os 12 arquivos, aplica a cifra e retorna um texto único concatenado
+char* gerarTextoGlobal(int deslocamento);
 #endif

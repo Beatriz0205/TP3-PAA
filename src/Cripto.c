@@ -144,6 +144,7 @@ void aplicarCifraMemoria(char *texto, int deslocamento) {
     for (int i = 0; texto[i] != '\0'; i++) {
         char c = texto[i];
         if (isalpha(c)) {
+            c=toupper(c);
             char base = isupper(c) ? 'A' : 'a';
             // Garante que o deslocamento seja positivo e dentro de 0-25
             texto[i] = ((c - base + deslocamento) % 26 + 26) % 26 + base;

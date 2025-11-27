@@ -16,12 +16,12 @@
 
 void voltarMenu() {
     int op;
-    printf("Digite 1 para voltar ao menu ou 0 para encerrar: \n");
+    printf("Digite 1 para voltar ao menu: \n");
     scanf("%d", &op);
 
     while (getchar() != '\n');
 
-    if (op == 0) {
+    if (op != 1) {
         printf("\nPrograma encerrado.\n");
         exit(0);
     }
@@ -193,49 +193,38 @@ int main() {
                     printf("Carregue um arquivo antes\n");
                     voltarMenu();
                     break;
-                }
-
-                char *textoBusca = aplicarChaveParcial(conteudo, chave);
-                if (textoBusca) {
-                    escrever_arquivo("TextoParcial", textoBusca); 
-                    printf("\n[Info] Busca sera feita no 'arqCripto/TextoParcial.txt' (Texto Parcialmente Decifrado).\n");
-                } else {
-                    printf("Erro de memoria.\n");
-                    break;
-                }        
+                }     
 
                 char continua;
 
                 do{
                     char padrao[MAX_PADRAO];
-                    int *posicoes = malloc(strlen(textoBusca) * sizeof(int));
+                    int n = strlen(conteudo);
+                    int *posicoesOcorrenciasExatas = malloc(n * sizeof(int));
 
                     printf("Qual o padrao utilizado?\n");
                     scanf("%255s",padrao);
                     getchar();
 
                     int tamPadrao=strlen(padrao);
+                    int qntOcorrenciasExatas= boyerMooreHorspool(conteudo,padrao,posicoesOcorrenciasExatas);
 
-                    int ocorrencias = boyerMooreHorspool(textoBusca, padrao, posicoes);
-
-                    printf("\nOcorrencias: %d\n", ocorrencias);
-                    exibirOcorrencias(textoBusca, posicoes, tamPadrao, ocorrencias);
+                    printf("\nOcorrencias %d\n\n",qntOcorrenciasExatas);
+                    printf("");
+                    exibirOcorrencias(conteudo,posicoesOcorrenciasExatas,tamPadrao,qntOcorrenciasExatas);
 
                     if (qntPalavras > 0)
-                        printf("\n\nFreq. rel. palavras: %.2f%%", frequenciaPalavras(ocorrencias, qntPalavras) * 100);
+                        printf("\n\nFreq. rel. palavras: %.2f%%", frequenciaPalavras(qntOcorrenciasExatas, qntPalavras) * 100);
                     if (qntCaracteres > 0)
-                        printf("\nFreq. rel. letras: %.2f%%", frequenciaLetras(ocorrencias, tamPadrao, qntCaracteres) * 100);
+                        printf("\nFreq. rel. letras: %.2f%%\n", frequenciaLetras(qntOcorrenciasExatas, tamPadrao, qntCaracteres) * 100);
 
-                    
-
-                    free(posicoes);
+                    free(posicoesOcorrenciasExatas);
 
                     printf("\nDeseja buscar outro padrão? (s/n): ");
                     scanf("%c", &continua);
                     getchar();
 
                 } while (continua == 's' || continua == 'S');
-                free(textoBusca); // Limpa a memória
                 voltarMenu();
                 break;
             }

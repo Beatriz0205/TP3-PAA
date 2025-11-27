@@ -3,6 +3,9 @@
 #include <time.h>
 #include <string.h>
 #include <ctype.h>
+
+#define MAX_PADRAO 256
+
 #include "../include/Arquivo.h"
 #include "../include/ArquivoSaida.h"
 #include "../include/Cripto.h"
@@ -76,7 +79,7 @@ int main() {
 
                 qntCaracteres=contaCaracteres(conteudo);
                 qntPalavras=contaPalavras(conteudo);
-                //printf("Texto Original: %s\n\n", conteudo);
+                printf("Texto Original: %s\n\n", conteudo);
 
                 voltarMenu();
                 break;
@@ -100,10 +103,12 @@ int main() {
                 char continua;
 
                 do{
-                    char padrao[strlen(conteudo)];
-                    int posicoesOcorrenciasExatas[strlen(conteudo)];
+                    char padrao[MAX_PADRAO];
+                    int n = strlen(conteudo);
+                    int *posicoesOcorrenciasExatas = malloc(n * sizeof(int));
+
                     printf("Qual o padrao utilizado?\n");
-                    scanf("%s",padrao);
+                    scanf("%255s",padrao);
                     getchar();
 
                     int tamPadrao=strlen(padrao);
@@ -116,6 +121,8 @@ int main() {
                     printf("\n\nFrequencia do padrao em relacao a quantidade de palavras do texto: %.2f %c \n",frequenciaPalavras(qntOcorrenciasExatas,qntPalavras),'%');
 
                     printf("Frequencia do padrao em relacao a quantidade de letras do texto: %.2f %c \n",frequenciaPalavras(qntOcorrenciasExatas,qntCaracteres),'%');
+
+                    free(posicoesOcorrenciasExatas);
 
                     printf("\nDeseja buscar outro padrão? (s/n): ");
                     scanf("%c", &continua);
@@ -140,7 +147,9 @@ int main() {
                 do{
                     char padrao[strlen(conteudo)];
                     int k;
-                    int posicoesOcorrenciasAprox[strlen(conteudo)];
+                    int n = strlen(conteudo);
+                    int *posicoesOcorrenciasAprox = malloc(n * sizeof(int));
+
                     printf("Qual o padrao e a tolerancia (k) utilizados?\n");
                     scanf("%s %d",padrao,&k);
                     getchar();
@@ -156,6 +165,8 @@ int main() {
                     printf("\n\nFrequencia do padrao em relacao a quantidade de palavras do texto: %.2f%%\n",frequenciaPalavras(qntOcorrenciasAprox,qntPalavras));
 
                     printf("Frequencia do padrao em relacao a quantidade de letras do texto: %.2f%% \n",frequenciaPalavras(qntOcorrenciasAprox,qntCaracteres));
+
+                    free(posicoesOcorrenciasAprox);
 
                     printf("\nDeseja buscar outro padrão? (s/n): ");
                     scanf("%c", &continua);

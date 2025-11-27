@@ -75,7 +75,10 @@ int boyerMooreHorspool(const char* texto, const char* padrao, int localOcorrenci
                 continue;
             }
         }
-        indiceInicial+= (m-1) - tabela[(unsigned char)texto[indiceInicial + (m-1)]]; //houve colisao, calcula o deslocamento com base na 
+        int deslocamento = (m-1) - tabela[(unsigned char)texto[indiceInicial + (m-1)]]; //houve colisao, calcula o deslocamento com base na 
+        if (deslocamento<=0) deslocamento=1;
+
+        indiceInicial+=deslocamento;
     }
     return quantOcorrencias;
 }

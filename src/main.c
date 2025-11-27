@@ -72,11 +72,12 @@ int main() {
                 printf("Informe um nome para o arquivo resultante da criptografia.\n");
                 scanf("%s", nomeArquivoCripto);
                 while (getchar() != '\n'); // limpa buffer
+                //X deve ser aleatorio
+                int x = (int)(Math.random() * 26) + 1;
 
-                int x;
-                printf("Cifra de deslocamento. Informe o valor deslocado:\n");
-                scanf("%d",&x);
-                getchar();
+                //printf("Cifra de deslocamento. Informe o valor deslocado:\n");
+                //scanf("%d",&x);
+                //getchar();
                 cifraDeslocamento(nomeArquivoCripto,conteudo,x);
 
 

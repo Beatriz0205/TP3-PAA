@@ -6,7 +6,7 @@
 #include "../include/Arquivo.h"
 #include "../include/ArquivoSaida.h"
 #include "../include/Cripto.h"
-#include "../include/Frequencia.h"
+#include "../include/frequencia.h"
 #include "../include/Casamento.h"
 
 

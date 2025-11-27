@@ -25,6 +25,12 @@ char* ler_arquivo(const char *nome_arquivo) {
     fread(conteudo, 1, tamanho, arquivo);
     conteudo[tamanho] = '\0';
 
+    for (int i = 0; conteudo[i] != '\0'; i++) {
+        if (conteudo[i] == '\n') {
+            conteudo[i] = '\0';   // OU: conteudo[i] = ' ';
+        }
+    }
+
     fclose(arquivo);
     return conteudo;
 }

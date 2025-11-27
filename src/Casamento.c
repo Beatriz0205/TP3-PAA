@@ -132,12 +132,12 @@ int ShiftAndAproximado(const char* texto, const char* padrao, int k, int localOc
     return quantOcorrencias;
 }
 
-float frequenciaPalavras(int ocorrenciasP, char* texto){
-    return ocorrenciasP / contaPalavras(texto);
-
+float frequenciaPalavras(int ocorrenciasP, int qntPalavras){
+    return (float)ocorrenciasP / (float)qntPalavras;
 }
-float frequenciaLetras(int ocorrenciasP, int tamPadrao, char* texto){
-    return (ocorrenciasP * tamPadrao) / contaCaracteres(texto);
+
+float frequenciaLetras(int ocorrenciasP, int tamPadrao, int qntLetras){
+    return ((float)ocorrenciasP * (float)tamPadrao) / (float)qntLetras;
 }
 
 void exibirOcorrencias(char* texto, int posicoes[], int tamPadrao, int qOcorrencias){

@@ -72,6 +72,8 @@ int main() {
     int opcao;
     char *conteudo = NULL;
     char chave[26];
+    int qntPalavras;
+    int qntCaracteres;
     
     printf("=== SISTEMA DE CRIPTOANÁLISE ===\n\n");
 
@@ -112,6 +114,9 @@ int main() {
                     printf("Erro ao ler arquivo!\n");
                     return 1;
                 }
+
+                qntCaracteres=contaCaracteres(conteudo);
+                qntPalavras=contaPalavras(conteudo);
                 //printf("Texto Original: %s\n\n", conteudo);
 
                 voltarMenu();
@@ -142,13 +147,18 @@ int main() {
                     scanf("%s",padrao);
                     getchar();
 
+                    int tamPadrao=strlen(padrao);
                     int qntOcorrenciasExatas= boyerMooreHorspool(conteudo,padrao,posicoesOcorrenciasExatas);
 
-                    printf("Ocorrencias %d\n\n",qntOcorrenciasExatas);
+                    printf("\nOcorrencias %d\n\n",qntOcorrenciasExatas);
                     printf("");
-                    exibirOcorrencias(conteudo,posicoesOcorrenciasExatas,strlen(padrao),qntOcorrenciasExatas);
+                    exibirOcorrencias(conteudo,posicoesOcorrenciasExatas,tamPadrao,qntOcorrenciasExatas);
 
-                    printf("\n\nDeseja buscar outro padrão? (s/n): ");
+                    printf("\n\nFrequencia do padrao em relacao a quantidade de palavras do texto: %.2f %c \n",frequenciaPalavras(qntOcorrenciasExatas,qntPalavras),'%');
+
+                    printf("Frequencia do padrao em relacao a quantidade de letras do texto: %.2f %c \n",frequenciaPalavras(qntOcorrenciasExatas,qntCaracteres),'%');
+
+                    printf("\nDeseja buscar outro padrão? (s/n): ");
                     scanf("%c", &continua);
                     getchar();
 
@@ -176,13 +186,19 @@ int main() {
                     scanf("%s %d",padrao,&k);
                     getchar();
 
+                    int tamPadrao=strlen(padrao);
                     int qntOcorrenciasAprox= ShiftAndAproximado(conteudo,padrao,k,posicoesOcorrenciasAprox);
 
-                    printf("Ocorrencias %d\n\n",qntOcorrenciasAprox);
+                    printf("\nOcorrencias %d\n\n",qntOcorrenciasAprox);
                     printf("");
-                    exibirOcorrencias(conteudo,posicoesOcorrenciasAprox,strlen(padrao),qntOcorrenciasAprox);
+                    exibirOcorrencias(conteudo,posicoesOcorrenciasAprox,tamPadrao,qntOcorrenciasAprox);
 
-                    printf("\n\nDeseja buscar outro padrão? (s/n): ");
+
+                    printf("\n\nFrequencia do padrao em relacao a quantidade de palavras do texto: %.2f%%\n",frequenciaPalavras(qntOcorrenciasAprox,qntPalavras));
+
+                    printf("Frequencia do padrao em relacao a quantidade de letras do texto: %.2f%% \n",frequenciaPalavras(qntOcorrenciasAprox,qntCaracteres));
+
+                    printf("\nDeseja buscar outro padrão? (s/n): ");
                     scanf("%c", &continua);
                     getchar();
 

@@ -5,8 +5,8 @@ void computarUltimaOcorrencia(const char* padrao,int tabela[]);
 int boyerMooreHorspool(const char* texto, const char* padrao, int localOcorrencia[]);
 int ShiftAndAproximado(const char* texto, const char* padrao, int k, int localOcorrencia[]);
 
-float frequenciaPalavras(int ocorrenciasP, char* texto);
-float frequenciaLetras(int ocorrenciasP, int tamPadrao, char* texto);
+float frequenciaPalavras(int ocorrenciasP, int qntPalavras);
+float frequenciaLetras(int ocorrenciasP, int tamPadrao, int qntLetras);
 
 int contaCaracteres(char* texto);
 int contaPalavras(char* texto);

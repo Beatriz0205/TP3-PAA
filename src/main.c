@@ -281,6 +281,12 @@ int main() {
                 voltarMenu();
                 break;
             }
+            case 8: {
+                printf("Nome do arquivo para guardar a chave: ");
+                scanf("%s", nome_arquivo);
+                registrarChave(deslocamentoAtual,nome_arquivo);
+                printf("Confira na pasta SaidaFinal.\n");
+            }
 
             default:
                 printf("Programa encerrado.\n");        

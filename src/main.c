@@ -39,13 +39,14 @@ int main() {
 
     do {
         printf("============= MENU ============\n\n");
-        printf("1. Ler arquivo\n");
-        printf("2. Mostrar estado da cripoanalise\n");
-        printf("3. Chute baseado na analise de frequencia\n");
-        printf("4. Casamento exato\n");
-        printf("5. Casamento aproximado\n");
-        printf("6. Alterar chave de criptografia\n");
-        printf("7. Exportar resultado e sair\n");
+        printf("1. Ler arquivo (Criptografado ou nao)\n");
+        printf("2. Criptografar texto\n");
+        printf("3. Mostrar estado da cripoanalise\n");
+        printf("4. Chute baseado na analise de frequencia\n");
+        printf("5. Casamento exato\n");
+        printf("6. Casamento aproximado\n");
+        printf("7. Alterar chave de criptografia\n");
+        printf("8. Exportar resultado e sair\n");
         printf("0. Digite qualquer outro valor para encerrar\n");
 
         scanf("%d", &opcao);
@@ -84,16 +85,34 @@ int main() {
                 voltarMenu();
                 break;
             }
-            case 2:
-                //logica aaqui
+            case 2:{
+                if (conteudo == NULL){
+                    printf("Carregue um arquivo normal antes");
+                    voltarMenu();
+                    break;
+                }
 
+                char nomeArquivo[256];
+                int x;
+                printf("Cifra de deslocamento. Informe o valor deslocado:\n");
+                scanf("%d",&x);
+                getchar();
+
+                printf("Informe um nome para o arquivo resultante da criptografia.\n");
+                fgets(nomeArquivo, sizeof(nomeArquivo), stdin);
+                nomeArquivo[strcspn(nomeArquivo, "\n")] = '\0';
+
+                cifraDeslocamento(nomeArquivo,conteudo,x);
 
                 voltarMenu();
                 break;
+            }
 
             case 3:
 
-            case 4:{
+            case 4:
+               
+            case 5:{
 
                 if (conteudo == NULL){
                     printf("Carregue um arquivo antes");
@@ -133,8 +152,8 @@ int main() {
                 voltarMenu();
                 break;
             }
-               
-            case 5:{
+
+            case 6:{
 
                 if (conteudo == NULL){
                     printf("Carregue um arquivo antes");
@@ -177,13 +196,6 @@ int main() {
                 voltarMenu();
                 break;
             }
-            case 6:
-                //logica aaqui
-
-
-                voltarMenu();
-                break;
-
             case 7:
                 //logica aaqui
 

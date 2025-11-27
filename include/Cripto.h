@@ -13,4 +13,6 @@ void mostrarEstado(const char *textoCriptografado, const char chave[26]);
 
 void editarChaveManual(char chave[26]);
 
+void cifraDeslocamento(const char* nomeArquivo, char* texto, int x);
+
 #endif

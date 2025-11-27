@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include <string.h>
+#include "../include/Arquivo.h"
+
 
 void inicializarChave(char chave[26]) {
     for (int i = 0; i < 26; i++) {
@@ -110,6 +112,27 @@ void editarChaveManual(char chave[26]) {
     } else {
         printf("Erro: Por favor, digite apenas letras validas.\n");
     }
+}
+
+void cifraDeslocamento(const char* nomeArquivo, char* texto, int x){
+
+    int n = strlen(texto);
+    char textoCripto[n + 1];
+
+    for (int i = 0; i < n; i++) {
+        char c = texto[i];
+
+        if (isalpha(c)) {
+            c = toupper(c); // converte para maiúscula
+            textoCripto[i] = ((c - 'A' + x) % 26 + 26) % 26 + 'A'; //faz deslocameento
+        } else {
+            textoCripto[i] = c; // mantém caracteres especiais
+        }
+    }
+    textoCripto[n] = '\0';//fim d srting
+
+    escrever_arquivo(nomeArquivo,textoCripto);
+
 }
 
 

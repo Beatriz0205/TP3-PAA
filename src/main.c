@@ -194,36 +194,48 @@ int main() {
                     voltarMenu();
                     break;
                 }
+
+                char *textoBusca = aplicarChaveParcial(conteudo, chave);
+                if (textoBusca) {
+                    escrever_arquivo("TextoParcial", textoBusca); 
+                    printf("\n[Info] Busca sera feita no 'arqCripto/TextoParcial.txt' (Texto Parcialmente Decifrado).\n");
+                } else {
+                    printf("Erro de memoria.\n");
+                    break;
+                }        
+
                 char continua;
 
                 do{
                     char padrao[MAX_PADRAO];
-                    int n = strlen(conteudo);
-                    int *posicoesOcorrenciasExatas = malloc(n * sizeof(int));
+                    int *posicoes = malloc(strlen(textoBusca) * sizeof(int));
 
                     printf("Qual o padrao utilizado?\n");
                     scanf("%255s",padrao);
                     getchar();
 
                     int tamPadrao=strlen(padrao);
-                    int qntOcorrenciasExatas= boyerMooreHorspool(conteudo,padrao,posicoesOcorrenciasExatas);
 
-                    printf("\nOcorrencias %d\n\n",qntOcorrenciasExatas);
-                    printf("");
-                    exibirOcorrencias(conteudo,posicoesOcorrenciasExatas,tamPadrao,qntOcorrenciasExatas);
+                    int ocorrencias = boyerMooreHorspool(textoBusca, padrao, posicoes);
 
-                    printf("\n\nFrequencia do padrao em relacao a quantidade de palavras do texto: %.2f %c \n",frequenciaPalavras(qntOcorrenciasExatas,qntPalavras),'%');
+                    printf("\nOcorrencias: %d\n", ocorrencias);
+                    exibirOcorrencias(textoBusca, posicoes, tamPadrao, ocorrencias);
 
-                    printf("Frequencia do padrao em relacao a quantidade de letras do texto: %.2f %c \n",frequenciaPalavras(qntOcorrenciasExatas,qntCaracteres),'%');
+                    if (qntPalavras > 0)
+                        printf("\n\nFreq. rel. palavras: %.2f%%", frequenciaPalavras(ocorrencias, qntPalavras) * 100);
+                    if (qntCaracteres > 0)
+                        printf("\nFreq. rel. letras: %.2f%%", frequenciaLetras(ocorrencias, tamPadrao, qntCaracteres) * 100);
 
-                    free(posicoesOcorrenciasExatas);
+                    
+
+                    free(posicoes);
 
                     printf("\nDeseja buscar outro padrão? (s/n): ");
                     scanf("%c", &continua);
                     getchar();
 
                 } while (continua == 's' || continua == 'S');
-                
+                free(textoBusca); // Limpa a memória
                 voltarMenu();
                 break;
             }
@@ -236,37 +248,50 @@ int main() {
                     break;
                 }
 
+                char *textoBusca = aplicarChaveParcial(conteudo, chave);
+                if (textoBusca) {
+                    escrever_arquivo("TextoParcial", textoBusca);
+                    printf("\n[Info] Busca sera feita no 'arqCripto/TextoParcial.txt' (Texto Parcialmente Decifrado).\n");
+                } else {
+                    printf("Erro de memoria.\n");
+                    break;
+                }
+
                 char continua;
 
                 do{
                     char padrao[strlen(conteudo)];
                     int k;
-                    int n = strlen(conteudo);
-                    int *posicoesOcorrenciasAprox = malloc(n * sizeof(int));
+                    int *posicoes = malloc(strlen(textoBusca) * sizeof(int));
+                    
 
                     printf("Qual o padrao e a tolerancia (k) utilizados?\n");
                     scanf("%s %d",padrao,&k);
                     getchar();
 
                     int tamPadrao=strlen(padrao);
-                    int qntOcorrenciasAprox= ShiftAndAproximado(conteudo,padrao,k,posicoesOcorrenciasAprox);
 
-                    printf("\nOcorrencias %d\n\n",qntOcorrenciasAprox);
+                    int ocorrencias = ShiftAndAproximado(textoBusca, padrao, k, posicoes);
+
+                    printf("\nOcorrencias Aproximadas %d\n\n",ocorrencias);
                     printf("");
-                    exibirOcorrencias(conteudo,posicoesOcorrenciasAprox,tamPadrao,qntOcorrenciasAprox);
+                    exibirOcorrencias(textoBusca, posicoes, tamPadrao, ocorrencias);
 
+                    if (qntPalavras > 0)
+                        printf("\n\nFreq. rel. palavras: %.2f%%", frequenciaPalavras(ocorrencias, qntPalavras) * 100);
+                    if (qntCaracteres > 0)
+                        printf("\nFreq. rel. letras: %.2f%%", frequenciaLetras(ocorrencias, tamPadrao, qntCaracteres) * 100);
 
-                    printf("\n\nFrequencia do padrao em relacao a quantidade de palavras do texto: %.2f%%\n",frequenciaPalavras(qntOcorrenciasAprox,qntPalavras));
-
-                    printf("Frequencia do padrao em relacao a quantidade de letras do texto: %.2f%% \n",frequenciaPalavras(qntOcorrenciasAprox,qntCaracteres));
-
-                    free(posicoesOcorrenciasAprox);
+                
+                    free(posicoes);
 
                     printf("\nDeseja buscar outro padrão? (s/n): ");
                     scanf("%c", &continua);
                     getchar();
 
                 } while (continua == 's' || continua == 'S');
+
+                free(textoBusca);
 
                 voltarMenu();
                 break;

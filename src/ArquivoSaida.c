@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-void registrarChave(int chave,const char *nome_arquivo ){
+void registrarChave(char* chave,const char *nome_arquivo ){
     char outputArquivo[100];
     sprintf(outputArquivo, "SaidaFinal/%s", nome_arquivo);
     FILE *arquivo = fopen(outputArquivo, "w");

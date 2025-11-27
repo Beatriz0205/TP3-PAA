@@ -34,6 +34,8 @@ int main() {
     char chave[26];
     int qntPalavras;
     int qntCaracteres;
+    char nome_arquivo[100];
+    char nomeArquivoCripto[256];
     
     printf("=== SISTEMA DE CRIPTOANÁLISE ===\n\n");
 
@@ -55,28 +57,30 @@ int main() {
         switch(opcao) {
             case 1:{
                 // inicializa chave parcial
-                char chave[26];
                 inicializarChave(chave);
 
                 // ler arquivo
-                char nome_arquivo[256];
-                //char caminho_arquivo[150] = "arqCripto/";
-
-                char caminho_arquivo[150] = "arq/";
-                
                 printf("Nome do arquivo (sem .txt, ex: Hysilens): ");
                 scanf("%s", nome_arquivo);
 
-                strcat(nome_arquivo, ".txt");
-                strcat(caminho_arquivo, nome_arquivo);
-
-                conteudo = ler_arquivo(caminho_arquivo);
-                escrever_arquivo(nome_arquivo,conteudo);
+                conteudo = ler_arquivo(nome_arquivo);
 
                 if (!conteudo) {
                     printf("Erro ao ler arquivo!\n");
                     return 1;
                 }
+                printf("Informe um nome para o arquivo resultante da criptografia.\n");
+                scanf("%s", nomeArquivoCripto);
+                while (getchar() != '\n'); // limpa buffer
+
+                int x;
+                printf("Cifra de deslocamento. Informe o valor deslocado:\n");
+                scanf("%d",&x);
+                getchar();
+                cifraDeslocamento(nomeArquivoCripto,conteudo,x);
+
+
+                printf("Texto criptografado e guardado!\n");
 
                 qntCaracteres=contaCaracteres(conteudo);
                 qntPalavras=contaPalavras(conteudo);
@@ -92,17 +96,8 @@ int main() {
                     break;
                 }
 
-                char nomeArquivo[256];
-                int x;
-                printf("Cifra de deslocamento. Informe o valor deslocado:\n");
-                scanf("%d",&x);
-                getchar();
 
-                printf("Informe um nome para o arquivo resultante da criptografia.\n");
-                fgets(nomeArquivo, sizeof(nomeArquivo), stdin);
-                nomeArquivo[strcspn(nomeArquivo, "\n")] = '\0';
 
-                cifraDeslocamento(nomeArquivo,conteudo,x);
 
                 voltarMenu();
                 break;

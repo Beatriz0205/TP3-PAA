@@ -4,8 +4,13 @@
 #include <string.h>
 
 // Função para ler o conteúdo de um arquivo e retornar como uma string.
-char* ler_arquivo(const char *nome_arquivo) {
-    FILE *arquivo = fopen(nome_arquivo, "r");
+char* ler_arquivo(const char *nome_ar) {
+    char caminho_arquivo[150] = "arq/";
+    char nome_arquivo[100];
+    strcpy(nome_arquivo, nome_ar);
+    strcat(nome_arquivo, ".txt");
+    strcat(caminho_arquivo, nome_arquivo);
+    FILE *arquivo = fopen(caminho_arquivo, "r");
     if (!arquivo) {
         perror("Erro ao abrir o arquivo");
         return NULL;
@@ -36,7 +41,10 @@ char* ler_arquivo(const char *nome_arquivo) {
 }
 
 // Função para escrever uma string em um arquivo.
-void escrever_arquivo(const char *nome_arquivo, const char *conteudo) {
+void escrever_arquivo(const char *nome_ar, const char *conteudo) {
+    char nome_arquivo[100];
+    strcpy(nome_arquivo,nome_ar);
+    strcat(nome_arquivo, ".txt");
     char caminho_arquivo[150] = "arqCripto/";
     strcat(caminho_arquivo, nome_arquivo);
     FILE *arquivo = fopen(caminho_arquivo, "w");

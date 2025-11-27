@@ -10,49 +10,6 @@
 #include "../include/Casamento.h"
 
 
-
-
-// int main(){
-//     //////////////////////////////
-//     //Para quando for o caso de ler os 12 arquivos criar um vetor com os 12 nomes e por para rodar ele
-//     //como cada grupo vai ter seu txt e o leitor não vai adicionar mais podemos por diretamente o nome do nosso quando for preciso
-
-//     /////////////////////////////
-
-
-//     //usado para ler o arquivo
-
-//     char chave[26];
-//     inicializarChave(chave);
-
-
-//     char nome_arquivo[256];
-//     char caminho_arquivo[150] = "arq/";
-//     printf("Nome do arquivo: ");
-//     scanf("%s", nome_arquivo);
-//     strcat(nome_arquivo, ".txt");
-//     strcat(caminho_arquivo, nome_arquivo);
-//     char *conteudo = ler_arquivo(caminho_arquivo);
-//     printf("Texto : %s\n",conteudo);
-//     printf("\n");
-
-//     //vai ser usado para salvar o texto criptografado
-//     //pelo que vi no menu teremos apenas os 12 textos
-//     //o nosso é esse
-//     escrever_arquivo("HysilensCripto.txt", conteudo);
-//     mostrarEstado(conteudo, chave);
-
-
-//     //Essa vai ser para a opção 6
-//     int chave = 9;
-//     printf("Nome do arquivo para guardar a chave: ");
-//     scanf("%s", nome_arquivo);
-//     strcat(nome_arquivo, ".txt");
-//     registrarChave(chave,nome_arquivo);
-//     printf("Confira na pasta SaidaFinal.\n");
-//     return 0;
-// }
-
 void voltarMenu() {
     int op;
     printf("Digite 1 para voltar ao menu ou 0 para encerrar: \n");
@@ -215,6 +172,176 @@ int main() {
 
 
 
+//Main q eu fiz pra salvar a chave atual 
+
+// void voltarMenu() {
+//     int op;
+//     printf("\nDigite 1 para voltar ao menu ou 0 para encerrar: ");
+//     scanf("%d", &op);
+
+//     while (getchar() != '\n');
+
+//     if (op == 0) {
+//         printf("\nPrograma encerrado.\n");
+//         exit(0);
+//     }
+// }
+
+// int main() {
+
+//     int opcao;
+//     char *conteudo = NULL;
+//     char chave[26];       // *** chave principal do programa ***
+//     inicializarChave(chave);   // inicializa só uma vez
+
+//     printf("=== SISTEMA DE CRIPTOANÁLISE ===\n\n");
+
+//     do {
+//         printf("\n============= MENU ============\n");
+//         printf("1. Ler arquivo\n");
+//         printf("2. Mostrar estado da criptoanalise\n");
+//         printf("3. Chute por análise de frequência\n");
+//         printf("4. Casamento exato\n");
+//         printf("5. Casamento aproximado\n");
+//         printf("6. Alterar chave de criptografia\n");
+//         printf("7. Exportar resultado e sair\n");
+//         printf("0. Encerrar\n\n");
+
+//         scanf("%d", &opcao);
+//         getchar();
+
+//         switch(opcao) {
+
+//             case 1: {
+//                 char nome_arquivo[256];
+//                 char caminho_arquivo[150] = "arqCripto/";
+
+//                 printf("Nome do arquivo (sem .txt, ex: Hysilens): ");
+//                 scanf("%s", nome_arquivo);
+
+//                 strcat(nome_arquivo, ".txt");
+//                 strcat(caminho_arquivo, nome_arquivo);
+
+//                 conteudo = ler_arquivo(caminho_arquivo);
+
+//                 if (!conteudo) {
+//                     printf("Erro ao ler arquivo!\n");
+//                     voltarMenu();
+//                     break;
+//                 }
+
+//                 printf("\nArquivo carregado com sucesso!\n");
+
+//                 voltarMenu();
+//                 break;
+//             }
+
+//             case 2: {
+//                 if (!conteudo) {
+//                     printf("Carregue um arquivo antes!\n");
+//                 } else {
+//                     mostrarEstado(conteudo, chave);   // mostra texto criptografado, chave parcial e texto parcial
+//                 }
+                
+//                 voltarMenu();
+//                 break;
+//             }
+
+
+//             case 3:
+//                 printf("Função de análise de frequência ainda não implementada.\n");
+//                 voltarMenu();
+//                 break;
+
+//             case 4: {
+//                 if (!conteudo) {
+//                     printf("Carregue um arquivo antes!\n");
+//                     voltarMenu();
+//                     break;
+//                 }
+
+//                 char continua;
+//                 do {
+//                     char padrao[strlen(conteudo)];
+//                     int posicoes[strlen(conteudo)];
+
+//                     printf("Padrão a buscar: ");
+//                     scanf("%s", padrao);
+
+//                     int qtd = boyerMooreHorspool(conteudo, padrao, posicoes);
+
+//                     printf("Ocorrências: %d\n\n", qtd);
+//                     exibirOcorrencias(conteudo, posicoes, strlen(padrao), qtd);
+
+//                     printf("\nBuscar outro? (s/n): ");
+//                     scanf(" %c", &continua);
+
+//                 } while (continua == 's' || continua == 'S');
+
+//                 voltarMenu();
+//                 break;
+//             }
+
+//             case 5: {
+//                 if (!conteudo) {
+//                     printf("Carregue um arquivo antes!\n");
+//                     voltarMenu();
+//                     break;
+//                 }
+
+//                 char continua;
+
+//                 do {
+//                     char padrao[strlen(conteudo)];
+//                     int k;
+//                     int posicoes[strlen(conteudo)];
+
+//                     printf("Padrão e tolerância k: ");
+//                     scanf("%s %d", padrao, &k);
+
+//                     int qtd = ShiftAndAproximado(conteudo, padrao, k, posicoes);
+
+//                     printf("Ocorrências aproximadas: %d\n\n", qtd);
+//                     exibirOcorrencias(conteudo, posicoes, strlen(padrao), qtd);
+
+//                     printf("\nBuscar outro? (s/n): ");
+//                     scanf(" %c", &continua);
+
+//                 } while (continua == 's' || continua == 'S');
+
+//                 voltarMenu();
+//                 break;
+//             }
+
+//             case 6: {
+//                 if (!conteudo) {
+//                     printf("Carregue um arquivo antes!\n");
+//                 } else {
+//                     editarChaveManual(chave);
+//                     printf("\nChave atual: ");
+//                     for (int i = 0; i < 26; i++) {
+//                         printf("%c", chave[i] == ' ' ? '_' : chave[i]);
+//                     }
+//                     printf("\n");
+//                 }
+
+//                 voltarMenu();
+//                 break;
+//             }
+
+//             case 7: {
+//                 printf("Função de exportação ainda será finalizada.\n");
+//                 printf("Programa encerrado.\n");
+//                 exit(0);
+//             }
+
+//             default:
+//                 printf("Programa encerrado.\n");
+//                 exit(0);
+//         }
+
+//     } while (1);
+// }
 
 
 

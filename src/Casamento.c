@@ -115,14 +115,14 @@ int ShiftAndAproximado(const char* texto, const char* padrao, int k, int localOc
         Rant = R[0]; // salva R anterior
         Rnovo = ((((unsigned long)Rant) >> 1) | Ri) & Masc[texto[i] + 127]; //avança no padrao + possibiliadde de um novo casamento + validacao com a tabela de bitmask
         R[0] = Rnovo; // atualiza estado
-
+        
         for (j = 1; j <= k; j++)
         {
             Rnovo = ((((unsigned long)R[j]) >> 1) & Masc[texto[i] + 127]) | //match
             ((((unsigned long)Rant) >> 1)); // substituicao
 
             Rant = R[j]; //salva pra proxima verificacao
-            R[j] = Rnovo; //atualiza
+            R[j] = Rnovo | Ri; //atualiza
         }
         int cAproximado = (R[k] & 1) != 0; //casamento aproximado
         int cExato = (R[0] & 1) != 0; //casamento exato

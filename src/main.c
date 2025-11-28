@@ -249,14 +249,19 @@ int main() {
                 char continua;
 
                 do{
-                    char padrao[strlen(conteudo)];
+                    char padrao[256];
                     int k;
                     int *posicoes = malloc(strlen(textoBusca) * sizeof(int));
                     
 
                     printf("Qual o padrao e a tolerancia (k) utilizados?\n");
-                    scanf("%s %d",padrao,&k);
+                    scanf(" %255s %d", padrao, &k);
+                    
                     getchar();
+
+                    for (int i = 0; padrao[i] != '\0'; i++) {
+                        padrao[i] = toupper((unsigned char)padrao[i]);
+                    }
 
                     int tamPadrao=strlen(padrao);
 
@@ -266,13 +271,13 @@ int main() {
                     printf("");
                     exibirOcorrencias(textoBusca, posicoes, tamPadrao, ocorrencias);
 
+                    free(posicoes);
+
                     if (qntPalavras > 0)
                         printf("\n\nFreq. rel. palavras: %.2f%%", frequenciaPalavras(ocorrencias, qntPalavras) * 100);
                     if (qntCaracteres > 0)
                         printf("\nFreq. rel. letras: %.2f%%", frequenciaLetras(ocorrencias, tamPadrao, qntCaracteres) * 100);
 
-                
-                    free(posicoes);
 
                     printf("\nDeseja buscar outro padrão? (s/n): ");
                     scanf("%c", &continua);

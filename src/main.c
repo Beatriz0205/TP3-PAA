@@ -210,7 +210,7 @@ int main() {
                     int qntOcorrenciasExatas= boyerMooreHorspool(conteudo,padrao,posicoesOcorrenciasExatas);
 
                     printf("\nOcorrencias %d\n\n",qntOcorrenciasExatas);
-                    printf("");
+                    printf(" ");
                     exibirOcorrencias(conteudo,posicoesOcorrenciasExatas,tamPadrao,qntOcorrenciasExatas);
 
                     if (qntPalavras > 0)
@@ -268,7 +268,7 @@ int main() {
                     int ocorrencias = ShiftAndAproximado(textoBusca, padrao, k, posicoes);
 
                     printf("\nOcorrencias Aproximadas %d\n\n",ocorrencias);
-                    printf("");
+                    printf(" ");
                     exibirOcorrencias(textoBusca, posicoes, tamPadrao, ocorrencias);
 
                     free(posicoes);
